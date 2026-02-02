@@ -2,39 +2,73 @@ using Vant.GamePlay.Procedure;
 using Vant.System.FSM;
 using UnityEngine;
 using Vant.Core;
+using Miner.Config;
+using Cysharp.Threading.Tasks;
+using Luban;
 
 namespace Miner.Business.Procedures
 {
     public class LoadAndPreloadState : ProcedureBase
     {
-        public override void OnInit(IFsm<ProcedureManager> fsm)
+        public override async void OnEnter()
+        {
+            Debug.Log("[游戏状态机] 进入加载与预加载状态");
+            AppCore.GlobalSettings.LUBAN_HOTFIX = true;
+            AppCore.GlobalSettings.LUBAN_CONFIG_PATH_HF = "Assets/LubanConfig/Bytes/";
+            await AppCore.Instance.ConfigManager.LoadAsync(() => MinerTables.CreateAsync(LoadConfigFromAddressables));
+        }
+
+        public override void OnExit(bool isShutdown)
+        {
+            Debug.Log("[游戏状态机] 退出加载与预加载状态");
+        }
+
+        public override void OnUpdate(float elapseSeconds, float realElapseSeconds)
+        {
+            if (AppCore.Instance.ConfigManager.IsLoaded<MinerTables>())
+            {
+                ChangeState<RegisterBusinessState>();
+            }
+        }
+
+        public override void OnDestroy()
         {
 
         }
 
-        public override void OnEnter(IFsm<ProcedureManager> fsm)
+        #region 自定义配置加载器
+
+        /// <summary>
+        /// 使用 Addressables 加载配置文件
+        /// </summary>
+        /// <param name="fileName">配置文件名（不含扩展名）</param>
+        /// <returns>配置数据的 ByteBuf</returns>
+        private async UniTask<ByteBuf> LoadConfigFromAddressables(string fileName)
         {
-            // AppCore.GlobalSettings.LUBAN_HOTFIX = false;
-            // AppCore.GlobalSettings.LUBAN_CONFIG_PATH_NON_HF = "ConfigBinary/";
-            // GameGlobal.Instance.AppCore.ConfigManager.Load<Tables>((loader) => new Tables(loader));
+            try
+            {
+                string path = $"{AppCore.GlobalSettings.LUBAN_CONFIG_PATH_HF}{fileName}.bytes";
+                var textAsset = await AppCore.Instance.MainAssetManager.LoadAssetAsync<TextAsset>(path);
+
+                if (textAsset == null)
+                {
+                    Debug.LogError($"[LoadAndPreloadState] 配置文件加载失败: {path}");
+                    return new ByteBuf(new byte[0]);
+                }
+
+                var bytes = textAsset.bytes;
+                Debug.Log($"[LoadAndPreloadState] 配置文件加载成功: {path}, 大小: {bytes.Length} bytes");
+                AppCore.Instance.MainAssetManager.ReleaseAsset(path);
+
+                return new ByteBuf(bytes);
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError($"[LoadAndPreloadState] 加载配置文件异常: {fileName}, 错误: {ex.Message}");
+                return new ByteBuf(new byte[0]);
+            }
         }
 
-        public override void OnExit(IFsm<ProcedureManager> fsm, bool isShutdown)
-        {
-
-        }
-
-        public override void OnUpdate(IFsm<ProcedureManager> fsm, float elapseSeconds, float realElapseSeconds)
-        {
-            // if (GameGlobal.Instance.AppCore.ConfigManager.IsLoaded<Tables>())
-            // {
-            //     ChangeState<MainGamePlayState>(fsm);
-            // }
-        }
-
-        public override void OnDestroy(IFsm<ProcedureManager> fsm)
-        {
-
-        }
+        #endregion
     }
 }

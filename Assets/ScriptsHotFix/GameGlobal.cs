@@ -44,7 +44,7 @@ namespace Miner.Business.Global
             {
                 new InitPackageState(),
                 new LoadAndPreloadState(),
-                new RegisterModelAndViewsState(),
+                new RegisterBusinessState(),
                 new GamePlayingState(),
             };
             _appCore.ProcedureManager.Init(procedures.ToArray());
