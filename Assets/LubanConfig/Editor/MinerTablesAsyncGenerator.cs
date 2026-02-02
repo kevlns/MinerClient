@@ -170,7 +170,7 @@ namespace Miner.Config.Editor
                 var existing = File.ReadAllText(fullPath);
                 if (existing == content)
                 {
-                    Debug.Log("[Luban] 异步接口已是最新，无需更新。");
+                    Debug.Log("[Luban] 异步接口已是最新，无需更新");
                     return;
                 }
             }

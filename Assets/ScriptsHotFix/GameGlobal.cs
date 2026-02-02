@@ -30,6 +30,7 @@ namespace Miner.Business.Global
 
             // 初始化 AppCore
             _appCore = new AppCore(this);
+            if (uiRoot != null) DontDestroyOnLoad(uiRoot.gameObject);
 
             // 扫描并注册 GM 命令
             _appCore.GMManager.ScanAndRegisterStaticMethods(this.GetType().Assembly);

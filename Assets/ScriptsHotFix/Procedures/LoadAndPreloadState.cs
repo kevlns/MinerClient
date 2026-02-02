@@ -52,19 +52,17 @@ namespace Miner.Business.Procedures
 
                 if (textAsset == null)
                 {
-                    Debug.LogError($"[LoadAndPreloadState] 配置文件加载失败: {path}");
+                    Debug.LogError($"[加载策划表数据] 配置文件加载失败: {path}");
                     return new ByteBuf(new byte[0]);
                 }
 
                 var bytes = textAsset.bytes;
-                Debug.Log($"[LoadAndPreloadState] 配置文件加载成功: {path}, 大小: {bytes.Length} bytes");
                 AppCore.Instance.MainAssetManager.ReleaseAsset(path);
-
                 return new ByteBuf(bytes);
             }
             catch (System.Exception ex)
             {
-                Debug.LogError($"[LoadAndPreloadState] 加载配置文件异常: {fileName}, 错误: {ex.Message}");
+                Debug.LogError($"[加载策划表数据] 加载配置文件异常: {fileName}, 错误: {ex.Message}");
                 return new ByteBuf(new byte[0]);
             }
         }
