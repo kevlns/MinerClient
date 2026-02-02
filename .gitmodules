@@ -1,0 +1,3 @@
+[submodule "Assets/Vant-Framework"]
+	path = Assets/Vant-Framework
+	url = https://github.com/kevlns/Vant-Framework.git
