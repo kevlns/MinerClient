@@ -6,6 +6,7 @@ using Cysharp.Threading.Tasks;
 using Vant.Core;
 using Vant.MVC;
 using Vant.UI.UIFramework;
+using Van.System.Guide;
 
 namespace Miner.UI
 {
@@ -42,6 +43,8 @@ namespace Miner.UI
 
         #endregion
 
+        public TestViewSkin data;
+
         #region Lifecycle
 
         /// <summary>
@@ -51,6 +54,20 @@ namespace Miner.UI
         protected override void OnCreate()
         {
             base.OnCreate();
+            data = new TestViewSkin(gameObject);
+            if (data == null) return;
+            if (data.button != null)
+            {
+                ClickableTargetManager.RegisterTarget(new ClickableWrapper()
+                {
+                    key = "TestViewSkin/button",
+                    handle = data.button.gameObject,
+                    clickCallBack = () =>
+                    {
+                        OnButtonClickAsync().Forget();
+                    }
+                });
+            }
         }
 
         /// <summary>
@@ -96,5 +113,62 @@ namespace Miner.UI
         }
 
         #endregion
+
+        private async UniTaskVoid OnButtonClickAsync()
+        {
+            try
+            {
+                var sceneManager = AppCore.Instance.SceneManager;
+                data.button.interactable = false;
+                await sceneManager.LoadSceneAsync("Miner_MainScene", activateOnLoad: false);
+
+                await PreprocessBeforeSceneActivation();
+
+                await sceneManager.ActivateSceneAsync("Miner_MainScene");
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"场景加载失败: {e.Message}");
+            }
+            finally
+            {
+                // 重新启用按钮
+                if (data.button != null)
+                {
+                    data.button.interactable = true;
+                }
+            }
+        }
+
+        private async UniTask PreprocessBeforeSceneActivation()
+        {
+            // 这里可以执行一些预处理：
+
+            // 1. 显示加载界面
+            ShowLoadingScreen();
+
+            // 2. 预加载资源
+            await PreloadResourcesAsync();
+
+            // 3. 初始化数据
+            InitializeGameData();
+        }
+
+        private void ShowLoadingScreen()
+        {
+            // 显示加载UI
+            // GameObject.Find("LoadingPanel").SetActive(true);
+        }
+
+        private async UniTask PreloadResourcesAsync()
+        {
+            // 使用 Addressables 预加载资源
+            // await Addressables.LoadAssetAsync<GameObject>("PrefabName");
+        }
+
+        private void InitializeGameData()
+        {
+            // 初始化游戏数据
+        }
     }
 }

@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using Vant.UI.UIComponents;
 using Van.System.Guide;
+using Vant.Core;
 
 namespace Miner.UI
 {
@@ -22,15 +23,8 @@ namespace Miner.UI
             var generator = gameObject.GetComponent<ReferenceContainerGenerator>();
             title = generator.Get<UnityEngine.UI.Text>("title");
             button = generator.Get<UnityEngine.UI.Button>("button");
-            if (button != null)
-            {
-                ClickableTargetManager.RegisterTarget(new ClickableWrapper()
-                {
-                    key = "TestViewSkin/button",
-                    handle = button.gameObject
-                });
-            }
         }
+
         public void Dispose()
         {
             ClickableTargetManager.UnregisterTarget("TestViewSkin/button");
