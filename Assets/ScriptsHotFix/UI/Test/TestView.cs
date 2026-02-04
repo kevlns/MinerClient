@@ -58,15 +58,7 @@ namespace Miner.UI
             if (data == null) return;
             if (data.button != null)
             {
-                ClickableTargetManager.RegisterTarget(new ClickableWrapper()
-                {
-                    key = "TestViewSkin/button",
-                    handle = data.button.gameObject,
-                    clickCallBack = () =>
-                    {
-                        OnButtonClickAsync().Forget();
-                    }
-                });
+                data.button.onClick.AddListener(() => { OnButtonClickAsync().Forget(); });
             }
         }
 
@@ -125,6 +117,8 @@ namespace Miner.UI
                 await PreprocessBeforeSceneActivation();
 
                 await sceneManager.ActivateSceneAsync("Miner_MainScene");
+
+                await CloseSelf();
             }
             catch (System.Exception e)
             {
