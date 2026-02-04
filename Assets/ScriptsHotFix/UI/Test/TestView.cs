@@ -118,7 +118,7 @@ namespace Miner.UI
 
                 await sceneManager.ActivateSceneAsync("Miner_MainScene");
 
-                await CloseSelf();
+                CloseSelf();
             }
             catch (System.Exception e)
             {
