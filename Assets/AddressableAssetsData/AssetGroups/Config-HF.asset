@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Config-HF
+  m_EditorClassIdentifier: 
+  m_GroupName: Config-HF
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 810cfe8cd8861bb4397bcaca000e3253
+  m_SerializeEntries:
+  - m_GUID: 36fa85cf45eea6745a4ebe8a877748e2
+    m_Address: Assets/LubanConfig/Bytes/tbsampledata.bytes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3fe67d135c15a7e47aefdd6224610200
+    m_Address: Assets/LubanConfig/Bytes/tbhelloworld.bytes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ed1a321190eadac4993c898bebb6a728
+    m_Address: Assets/LubanConfig/Bytes/tbnihao.bytes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: fdf2e98792b85fd4b9799d6e094ef438, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 04ad24cd76875014495c5c2fe4a9a7e8, type: 2}
+    - {fileID: 11400000, guid: 6ea49a24977fbe0408f8df42ba2bdd6f, type: 2}
