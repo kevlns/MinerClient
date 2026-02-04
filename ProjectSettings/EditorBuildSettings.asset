@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Pre-Init.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Miner_MainScene.unity
+    guid: 6eef689b1de13174495b8e658becee0f
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: f1bc1f5a70750b844a0ea9f4eac76e8b,
       type: 2}
