@@ -75,9 +75,9 @@ namespace Miner.UI
         /// 3. 刷新时调用
         /// 用于将数据绑定到 UI 元素
         /// </summary>
-        protected override void OnRefresh()
+        protected override void OnRefreshOnceOnOpen()
         {
-            base.OnRefresh();
+            base.OnRefreshOnceOnOpen();
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace Miner.UI
 
                 await sceneManager.ActivateSceneAsync("Miner_MainScene");
 
-                CloseSelf();
+                HideView();
             }
             catch (System.Exception e)
             {

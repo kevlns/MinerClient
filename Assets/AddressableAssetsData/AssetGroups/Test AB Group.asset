@@ -17,6 +17,11 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 6d849d1ded862414e82f2417e42471e4
   m_SerializeEntries:
+  - m_GUID: 44d5cebbe52894945a6ef3d04fc777a2
+    m_Address: Assets/ArtResources/Prefabs/Test/TestEntity.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4a8e3e75143f0f240bdf68d9b28ce3bf
     m_Address: Assets/ArtResources/Prefabs/UI Common/TestView.prefab
     m_ReadOnly: 0
